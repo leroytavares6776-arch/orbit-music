@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ORBIT MUSIC — Listen in Another Dimension</title>
+<style>
+:root{--bg:#090914;--panel:#15152b;--panel2:#1d1b38;--line:#393454;--text:#f5f2ff;--muted:#aaa5c4;--violet:#a78bfa;--blue:#60a5fa;--pink:#f0abfc}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#302052 0,transparent 38%),radial-gradient(ellipse at 95% 20%,#142b4b 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.5 Inter,Segoe UI,Arial,sans-serif}
+.wrap{max-width:1050px;margin:auto;padding:25px 18px 50px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:22px;font-weight:900;letter-spacing:3px}.brand span{color:var(--violet)}.tag{font-size:11px;letter-spacing:1px;border:1px solid var(--line);border-radius:30px;padding:7px 11px;color:#d7d0f7}
+.hero{text-align:center;padding:48px 0 28px}.hero h1{font-size:clamp(38px,7vw,68px);line-height:1.02;letter-spacing:-3px;margin:0}.hero h1 em{font-style:normal;background:linear-gradient(90deg,#c4b5fd,#60a5fa,#f0abfc);color:transparent;background-clip:text}.hero p{color:var(--muted);margin:14px 0 0}
+.card{background:linear-gradient(145deg,#1b1934ed,#101226f5);border:1px solid var(--line);border-radius:21px;padding:21px;margin:17px 0;box-shadow:0 18px 50px #0005}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:5px}.sectionhead h2{font-size:18px;margin:0}.muted{font-size:13px;color:var(--muted);margin:0 0 16px}
+.songlist{display:grid;gap:10px}.empty{padding:28px 16px;text-align:center;border:1px dashed #625887;border-radius:15px;color:var(--muted);background:#0d0e1d}.song{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;background:#0d0e1d;border:1px solid #302d4a;border-radius:14px;padding:11px}.cover{width:48px;height:48px;border-radius:11px;background:linear-gradient(140deg,#8b5cf6,#2563eb,#db70ca);display:grid;place-items:center;font-size:21px}.songtitle{font-weight:750}.artist{font-size:12px;color:var(--muted)}.songactions{display:flex;gap:7px}.btn{border:0;border-radius:11px;padding:11px 14px;font-weight:750;color:white;background:linear-gradient(100deg,#8b5cf6,#4f8de8);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.btn.secondary{background:#292644;border:1px solid #4a426b}.btn.small{padding:9px 11px;font-size:12px}.btn:disabled{opacity:.45;cursor:not-allowed}
+.player{background:linear-gradient(120deg,#211d40,#11182f);border:1px solid #49416e;border-radius:16px;padding:17px}.now{font-size:12px;color:#c4b5fd;text-transform:uppercase;letter-spacing:1.2px}.current{font-size:20px;font-weight:800;margin:4px 0}.player audio{width:100%;margin-top:10px}.playerrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}.status{font-size:12px;color:#c4b5fd;min-height:18px;margin-top:10px}
+.visual{height:210px;position:relative;overflow:hidden;border-radius:16px;background:radial-gradient(ellipse at center,#29204f,#11152c 55%,#090a18);display:grid;place-items:center}.ring{position:absolute;width:170px;height:170px;border:1px solid #a78bfa88;border-radius:50%;box-shadow:0 0 30px #9274ff22;animation:spin 14s linear infinite}.ring.r2{width:120px;height:120px;border-color:#60a5fa99;animation-direction:reverse;animation-duration:10s}.ring.r3{width:225px;height:225px;border-style:dashed;opacity:.45;animation-duration:25s}.orb{width:62px;height:62px;border-radius:50%;z-index:2;background:radial-gradient(circle at 35% 30%,white,#c4b5fd 20%,#7655dc 60%,#25204d);box-shadow:0 0 42px #a78bfa}.dot{position:absolute;width:12px;height:12px;border-radius:50%;background:#8bd5ff;box-shadow:0 0 20px #60a5fa;z-index:3}
+@keyframes spin{to{transform:rotate(360deg)}}
+.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.control{background:#0d0e1d;border:1px solid #302d4a;border-radius:13px;padding:13px}.control label{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#e4def8;margin-bottom:8px}.control input{width:100%;accent-color:#a78bfa}.toggle{display:flex;justify-content:space-between;align-items:center;margin-top:14px}.switch{appearance:none;width:46px;height:25px;border-radius:20px;background:#49445f;position:relative;cursor:pointer}.switch:before{content:"";position:absolute;left:3px;top:3px;width:19px;height:19px;border-radius:50%;background:white;transition:.2s}.switch:checked{background:#8b5cf6}.switch:checked:before{left:24px}
+.searchrow{display:flex;gap:9px}.searchrow input{flex:1;min-width:0;background:#0d0e1d;border:1px solid #484268;border-radius:12px;padding:13px;color:white}.tip{font-size:12px;line-height:1.65;color:#bcb6d4;margin:13px 0 0}.footer{text-align:center;color:#77728e;font-size:12px;margin-top:28px}
+@media(max-width:650px){.song{grid-template-columns:42px 1fr}.songactions{grid-column:2}.cover{width:42px;height:42px}.controls{grid-template-columns:1fr}.card{padding:16px}.hero{padding:35px 0 20px}.searchrow{flex-direction:column}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="top"><div class="brand">◉ ORBIT<span>.</span></div><div class="tag">MUSIC • SPATIAL • VIBES</div></header>
+<section class="hero"><h1>Music in <em>another dimension.</em></h1><p>Your daily music corner. Listen online, download, and explore spatial sound.</p></section>
+
+<section class="card">
+ <div class="sectionhead"><h2>Latest music</h2><span class="tag" id="count">0 TRACKS</span></div>
+ <p class="muted">Fresh songs added for the ORBIT community.</p>
+ <div id="songlist" class="songlist"></div>
+</section>
+
+<section class="card">
+ <h2>Now playing</h2><p class="muted">Choose a track above to listen. Headphones recommended for spatial audio.</p>
+ <div class="player">
+  <div class="now">ORBIT PLAYER</div><div class="current" id="currentTitle">Nothing playing yet</div><div class="artist" id="currentArtist">Choose a song from Latest music</div>
+  <audio id="audio" controls preload="none"></audio>
+  <div class="playerrow"><button class="btn" id="togglePlay" disabled>▶ Play</button><button class="btn secondary" id="center" disabled>◎ Center sound</button></div>
+  <div class="status" id="status">Select a track to begin.</div>
+ </div>
+</section>
+
+<section class="card">
+ <h2>3D spatial audio</h2><p class="muted">When a track is playing, the sound source can slowly travel around your listening position.</p>
+ <div class="visual"><div class="ring r3"></div><div class="ring"></div><div class="ring r2"></div><div class="orb"></div><div class="dot" id="dot"></div></div>
+ <div class="toggle"><strong>Automatic 3D movement</strong><input class="switch" type="checkbox" id="auto" checked></div>
+ <div class="controls">
+  <div class="control"><label for="speed">Movement speed <b id="speedText">Slow</b></label><input id="speed" type="range" min="1" max="10" value="2"></div>
+  <div class="control"><label for="depth">Movement strength <b id="depthText">70%</b></label><input id="depth" type="range" min="10" max="100" value="70"></div>
+  <div class="control"><label for="horizontal">Left ↔ Right <b id="xText">Centre</b></label><input id="horizontal" type="range" min="-100" max="100" value="0"></div>
+  <div class="control"><label for="vertical">Down ↔ Up <b id="yText">Centre</b></label><input id="vertical" type="range" min="-100" max="100" value="0"></div>
+  <div class="control"><label for="frontback">Front ↔ Behind <b id="zText">Centre</b></label><input id="frontback" type="range" min="-100" max="100" value="0"></div>
+  <div class="control"><label for="volume">Spatial effect level <b id="volText">100%</b></label><input id="volume" type="range" min="0" max="100" value="100"></div>
+ </div>
+ <p class="tip">Uses browser HRTF spatial positioning. Headphones give the best result. The effect works on songs hosted with this website, not on audio playing separately in YouTube or Spotify.</p>
+</section>
+
+<section class="card">
+ <h2>Search elsewhere</h2><p class="muted">Find a track on your favourite service. External streams cannot be routed through ORBIT's 3D engine.</p>
+ <div class="searchrow"><input id="query" placeholder="Song title or artist"><button class="btn" id="yt">YouTube</button><button class="btn" id="sp">Spotify</button></div>
+</section>
+<div class="footer">ORBIT MUSIC • Made for friends who love music</div>
+</main>
+<script>
+/* DAILY SONG UPDATE:
+   1) Upload each audio file into the "songs" folder in your GitHub repository.
+   2) Add a new object below. Keep the filename and path exact.
+   Example:
+   { title: "My New Song", artist: "Artist Name", file: "songs/my-new-song.mp3" },
+*/
+const SONGS = [
+  // Add your song entries here.
+];
+
+const $=id=>document.getElementById(id),audio=$('audio'),list=$('songlist'),status=$('status');
+let ctx=null,source=null,panner=null,gain=null,raf=0,startTime=0,currentIndex=-1;
+function renderSongs(){
+ $('count').textContent=SONGS.length+' TRACK'+(SONGS.length===1?'':'S');
+ if(!SONGS.length){list.innerHTML='<div class="empty">♫<br><strong>No songs added yet</strong><br><span style="font-size:12px">Your new music will appear here when you add tracks to the SONGS list in this file.</span></div>';return}
+ list.innerHTML='';
+ SONGS.forEach((song,i)=>{
+  const row=document.createElement('div');row.className='song';
+  const cover=document.createElement('div');cover.className='cover';cover.textContent='♫';
+  const info=document.createElement('div');const title=document.createElement('div');title.className='songtitle';title.textContent=song.title;
+  const artist=document.createElement('div');artist.className='artist';artist.textContent=song.artist||'Unknown artist';info.append(title,artist);
+  const actions=document.createElement('div');actions.className='songactions';
+  const play=document.createElement('button');play.className='btn small';play.textContent='▶ Listen';play.addEventListener('click',()=>loadSong(i,true));
+  const download=document.createElement('a');download.className='btn small secondary';download.textContent='↓ Download';download.href=song.file;download.download='';download.rel='noopener';
+  actions.append(play,download);row.append(cover,info,actions);list.append(row);
+ });
+}
+function setupAudio(){
+ if(ctx)return true;
+ const AC=window.AudioContext||window.webkitAudioContext;
+ if(!AC){status.textContent='Your browser does not support spatial audio. Try the latest Chrome.';return false}
+ ctx=new AC();source=ctx.createMediaElementSource(audio);panner=ctx.createPanner();gain=ctx.createGain();
+ panner.panningModel='HRTF';panner.distanceModel='inverse';panner.refDistance=1;panner.maxDistance=10;panner.rolloffFactor=.05;panner.coneInnerAngle=360;panner.coneOuterAngle=360;panner.coneOuterGain=1;
+ source.connect(panner);panner.connect(gain);gain.connect(ctx.destination);
+ const L=ctx.listener;if(L.positionX){L.positionX.value=0;L.positionY.value=0;L.positionZ.value=0;L.forwardX.value=0;L.forwardY.value=0;L.forwardZ.value=-1;L.upX.value=0;L.upY.value=1;L.upZ.value=0}else{L.setPosition(0,0,0);L.setOrientation(0,0,-1,0,1,0)}
+ return true;
+}
+function setPos(x,y,z){
+ if(!panner)return;const t=ctx.currentTime;
+ if(panner.positionX){panner.positionX.setTargetAtTime(x,t,.09);panner.positionY.setTargetAtTime(y,t,.09);panner.positionZ.setTargetAtTime(z,t,.09)}else panner.setPosition(x,y,z);
+ $('dot').style.transform=`translate(${x*28}px,${-y*24}px)`;
+ $('xText').textContent=x<-.15?'Left':x>.15?'Right':'Centre';$('yText').textContent=y<-.15?'Down':y>.15?'Up':'Centre';$('zText').textContent=z<0?'Front':z>0?'Behind':'Centre';
+}
+function manualPos(){const k=+$('depth').value/100;setPos(+$('horizontal').value/100*k*3,+$('vertical').value/100*k*2,+$('frontback').value/100*k*3)}
+function animate(){cancelAnimationFrame(raf);const loop=()=>{if(ctx&&$('auto').checked&&!audio.paused){const t=(performance.now()-startTime)/1000,a=t*(+$('speed').value)*.095,k=+$('depth').value/100;setPos(Math.sin(a)*3*k,Math.sin(a*.7)*2*k,Math.cos(a)*2.5*k)}raf=requestAnimationFrame(loop)};loop()}
+async function loadSong(i,play){
+ const s=SONGS[i];if(!s)return;currentIndex=i;audio.src=s.file;$('currentTitle').textContent=s.title;$('currentArtist').textContent=s.artist||'Unknown artist';$('togglePlay').disabled=false;$('center').disabled=false;
+ status.textContent='Loaded '+s.title+'.';
+ if(play){if(!setupAudio())return;try{await ctx.resume();await audio.play();$('togglePlay').textContent='Ⅱ Pause';status.textContent='Playing with 3D spatial audio. Headphones recommended.';startTime=performance.now();animate()}catch(e){status.textContent='Playback could not start. Check that the song file path is correct.'}}
+}
+$('togglePlay').addEventListener('click',async()=>{if(currentIndex<0)return;if(!setupAudio())return;await ctx.resume();if(audio.paused){try{await audio.play();$('togglePlay').textContent='Ⅱ Pause';startTime=performance.now();animate()}catch(e){status.textContent='Could not play this file. Check its path and format.'}}else{audio.pause();$('togglePlay').textContent='▶ Play'}});
+audio.addEventListener('ended',()=>{$('togglePlay').textContent='▶ Play';cancelAnimationFrame(raf)});
+audio.addEventListener('error',()=>{if(audio.src)status.textContent='Could not load this song. Check that its file exists in the songs folder.'});
+$('center').addEventListener('click',()=>{$('auto').checked=false;['horizontal','vertical','frontback'].forEach(id=>$(id).value=0);manualPos();status.textContent='Sound centered.'});
+['horizontal','vertical','frontback'].forEach(id=>$(id).addEventListener('input',()=>{if(!$('auto').checked)manualPos()}));
+$('auto').addEventListener('change',()=>{if($('auto').checked){startTime=performance.now();animate()}else{cancelAnimationFrame(raf);manualPos()}});
+$('speed').addEventListener('input',()=>{$('speedText').textContent=+$('speed').value<4?'Slow':+$('speed').value<8?'Medium':'Fast'});
+$('depth').addEventListener('input',()=>{$('depthText').textContent=$('depth').value+'%';if(!$('auto').checked)manualPos()});
+$('volume').addEventListener('input',()=>{if(gain)gain.gain.value=+$('volume').value/100;$('volText').textContent=$('volume').value+'%'});
+function search(which){const q=$('query').value.trim();if(!q){$('query').focus();return}window.open((which==='yt'?'https://www.youtube.com/results?search_query=':'https://open.spotify.com/search/')+encodeURIComponent(q),'_blank','noopener,noreferrer')}
+$('yt').addEventListener('click',()=>search('yt'));$('sp').addEventListener('click',()=>search('sp'));$('query').addEventListener('keydown',e=>{if(e.key==='Enter')search('yt')});
+renderSongs();
+</script>
+</body></html>
